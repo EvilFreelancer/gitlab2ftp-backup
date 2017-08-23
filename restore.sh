@@ -40,7 +40,7 @@ cd /var/opt/gitlab/backups/
 ftp -n $FTP_HOST << EOF                                                 | tee -a "$LOG"
 quote USER $FTP_USER
 quote PASS $FTP_PASS
-cd $PATH_MAIN
+cd $FTP_PATH_CONF
 get $ftp_latest_backup
 quit
 EOF
@@ -75,12 +75,12 @@ cd "$my_path"
 ftp -n $FTP_HOST << EOF                                                 | tee -a "$LOG"
 quote USER $FTP_USER
 quote PASS $FTP_PASS
-cd $PATH_MAIN
+cd $FTP_PATH_MAIN
 get $ftp_latest_config
 quit
 EOF
 echo "INF: Extract the configs from archive"                            | tee -a "$LOG"
-tar xf "$ftp_latest_config" -C /                                        | tee -a "$LOG"
+tar -xvpzf "$ftp_latest_config" -C /                                        | tee -a "$LOG"
 
 echo "INF: Run simple check"                                            | tee -a "$LOG"
 gitlab-ctl reconfigure                                                  | tee -a "$LOG"
