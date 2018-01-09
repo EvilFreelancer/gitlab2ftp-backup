@@ -57,7 +57,7 @@ tar -cvpzf "$confArchiveBackup" /etc/gitlab/
 #
 # Step 4 - Push latest backup to ftp server
 #
-ftp -n $FTP_HOST << EOF | tee -a "$LOG"
+ftp -n $FTP_HOST $FTP_PORT << EOF | tee -a "$LOG"
 quote USER $FTP_USER
 quote PASS $FTP_PASS
 cd $FTP_PATH_MAIN
